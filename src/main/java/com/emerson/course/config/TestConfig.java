@@ -1,9 +1,13 @@
 package com.emerson.course.config;
 
+import com.emerson.course.entities.Category;
 import com.emerson.course.entities.Order;
+import com.emerson.course.entities.Product;
 import com.emerson.course.entities.User;
 import com.emerson.course.entities.enums.OrderStatus;
+import com.emerson.course.repositories.CategoryRepository;
 import com.emerson.course.repositories.OrderRepository;
+import com.emerson.course.repositories.ProductRepository;
 import com.emerson.course.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -17,12 +21,15 @@ import java.util.Arrays;
 public class TestConfig implements CommandLineRunner {
 
     private final UserRepository userRepository;
-
     private final OrderRepository orderRepository;
+    private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
-    public TestConfig(UserRepository userRepository, OrderRepository orderRepository) {
+    public TestConfig(UserRepository userRepository, OrderRepository orderRepository, ProductRepository productRepository,CategoryRepository categoryRepository) {
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
+        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -36,8 +43,20 @@ public class TestConfig implements CommandLineRunner {
         Order o3 = new Order(null, Instant.parse("2020-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, u1);
         Order o4 = new Order(null, Instant.parse("2022-09-22T19:21:22Z"), OrderStatus.SHIPPED, u2);
 
+        Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+        Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+        Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+        Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+        Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3, o4));
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+        productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
     }
 
 
