@@ -3,7 +3,9 @@ package com.emerson.course.entities;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_product")
@@ -21,8 +23,10 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-    public Product(){
+    @Transient
+    private Set<Category> categories = new HashSet<>();
 
+    public Product(){
     }
 
     public Product(Long id, String name, String description, Double price, String imgUrl) {
@@ -71,6 +75,10 @@ public class Product implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 
     @Override

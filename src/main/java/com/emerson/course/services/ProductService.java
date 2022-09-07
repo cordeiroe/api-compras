@@ -1,8 +1,6 @@
 package com.emerson.course.services;
 
-import com.emerson.course.entities.Category;
 import com.emerson.course.entities.Product;
-import com.emerson.course.repositories.CategoryRepository;
 import com.emerson.course.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
